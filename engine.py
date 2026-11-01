@@ -1,138 +1,78 @@
-﻿import ipaddress
-import socket
-from urllib.parse import urlparse
-
-import requests
-import trafilatura
-from bs4 import BeautifulSoup
+﻿
+import re
+from collections import Counter
 
 
-MAX_PAGE_SIZE = 2 * 1024 * 1024
+STOP_WORDS = {
+    "the", "is", "are", "was", "were", "a", "an", "and",
+    "or", "but", "to", "of", "in", "on", "for", "with",
+    "by", "at", "from", "as", "it", "this", "that",
+    "be", "has", "have", "had", "will", "would", "can",
+    "could", "should", "may", "might", "about", "into"
+}
 
-def validate_url(url: str):
-    parsed = urlparse(url)
 
-    if parsed.scheme not in ("http", "https"):
-        raise ValueError("Only HTTP and HTTPS URLs are allowed")
+def extract_keywords(text: str) -> list[str]:
+    """Extract meaningful words from text."""
+    words = re.findall(r"\b[a-zA-Z]{3,}\b", text.lower())
 
-    if not parsed.hostname:
-        raise ValueError("Invalid URL")
+    return [
+        word for word in words
+        if word not in STOP_WORDS
+    ]
 
-    if parsed.username or parsed.password:
-        raise ValueError("URLs containing credentials are not allowed")
 
-    expected_port = 443 if parsed.scheme == "https" else 80
+def assess_relevance(claim: str, content: str) -> dict:
+    """
+    Estimate how relevant source content is to a claim.
 
-    try:
-        port = parsed.port or expected_port
-    except ValueError:
-        raise ValueError("Invalid URL port")
+    This is a keyword-overlap assessment.
+    It does not establish whether a claim is true or false.
+    """
 
-    if port != expected_port:
-        raise ValueError("Only standard HTTP and HTTPS ports are allowed")
+    if not isinstance(claim, str) or not claim.strip():
+        raise ValueError("Claim cannot be empty.")
 
-    hostname = parsed.hostname.lower()
+    if not isinstance(content, str) or not content.strip():
+        raise ValueError("Source content cannot be empty.")
 
-    if hostname == "localhost" or hostname.endswith((".localhost", ".local")):
-        raise ValueError("Local network addresses are not allowed")
+    claim_keywords = set(extract_keywords(claim))
+    content_keywords = set(extract_keywords(content))
 
-    try:
-        addresses = {
-            item[4][0]
-            for item in socket.getaddrinfo(
-                hostname,
-                port,
-                type=socket.SOCK_STREAM
-            )
+    if not claim_keywords:
+        return {
+            "score": 0,
+            "label": "Insufficient information",
+            "matched_keywords": [],
+            "missing_keywords": [],
+            "total_claim_keywords": 0,
+            "explanation": "No meaningful keywords found in the claim."
         }
-    except socket.gaierror:
-        raise ValueError("Unable to resolve website hostname")
 
-    if not addresses:
-        raise ValueError("Website hostname has no valid address")
+    matched = sorted(claim_keywords.intersection(content_keywords))
+    missing = sorted(claim_keywords.difference(content_keywords))
 
-    for address in addresses:
-        ip = ipaddress.ip_address(address)
-
-        if not ip.is_global:
-            raise ValueError("Private or non-public network addresses are not allowed")
-
-
-def extract_page(url: str) -> dict:
-    validate_url(url)
-
-    headers = {
-        "User-Agent": "WebMindAI/1.0 (Educational Research Crawler)",
-        "Accept": "text/html,application/xhtml+xml"
-    }
-
-    with requests.Session() as session:
-        session.trust_env = False
-
-        with session.get(
-            url,
-            headers=headers,
-            timeout=(5, 15),
-            allow_redirects=False,
-            stream=True
-        ) as response:
-
-            if 300 <= response.status_code < 400:
-                raise ValueError("Website redirects are not followed for security")
-
-            response.raise_for_status()
-
-            content_type = response.headers.get("Content-Type", "").lower()
-
-            if "text/html" not in content_type and "application/xhtml+xml" not in content_type:
-                raise ValueError("The requested URL does not contain an HTML page")
-
-            content_length = response.headers.get("Content-Length")
-
-            if content_length and int(content_length) > MAX_PAGE_SIZE:
-                raise ValueError("Web page exceeds the 2 MB size limit")
-
-            chunks = []
-            total_size = 0
-
-            for chunk in response.iter_content(chunk_size=65536):
-                if not chunk:
-                    continue
-
-                total_size += len(chunk)
-
-                if total_size > MAX_PAGE_SIZE:
-                    raise ValueError("Web page exceeds the 2 MB size limit")
-
-                chunks.append(chunk)
-
-            html = b"".join(chunks).decode(
-                response.encoding or "utf-8",
-                errors="replace"
-            )
-
-    soup = BeautifulSoup(html, "html.parser")
-
-    title = (
-        soup.title.get_text(strip=True)
-        if soup.title
-        else "Untitled page"
+    score = round(
+        (len(matched) / len(claim_keywords)) * 100,
+        2
     )
 
-    extracted_text = trafilatura.extract(
-        html,
-        url=url,
-        include_comments=False,
-        include_tables=True
-    )
-
-    if not extracted_text:
-        extracted_text = soup.get_text(" ", strip=True)
+    if score >= 75:
+        label = "High relevance"
+    elif score >= 40:
+        label = "Moderate relevance"
+    else:
+        label = "Low relevance"
 
     return {
-        "url": url,
-        "title": title,
-        "content": extracted_text,
-        "content_length": len(extracted_text),
-        "status": "success"
+        "score": score,
+        "label": label,
+        "matched_keywords": matched,
+        "missing_keywords": missing,
+        "total_claim_keywords": len(claim_keywords),
+        "matched_keyword_count": len(matched),
+        "explanation": (
+            "The score measures keyword overlap between the claim "
+            "and source content. It is not a truth score."
+        )
     }
