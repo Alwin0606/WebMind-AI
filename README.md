@@ -1,363 +1,233 @@
-# 🌐 WebMind AI
-### Beyond Search. Into Intelligence.
+# 🌐 WebMind-AI
+### 🧠 AI-Powered Website Intelligence & Knowledge Assistant
 
 <p align="center">
-  <strong>AI-Powered Web Research & Intelligence Platform</strong>
+
+**Transform Websites Into Intelligent Knowledge.**
+
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi&logoColor=white" />
-  <img src="https://img.shields.io/badge/React-Frontend-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
-  <img src="https://img.shields.io/badge/TypeScript-Frontend-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
-  <img src="https://img.shields.io/badge/Vite-Build%20Tool-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
-</p>
 
-<p align="center">
-  <em>Transforming scattered web information into structured research intelligence.</em>
-</p>
+[![Python](https://img.shields.io/badge/Python-3.13+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![AI](https://img.shields.io/badge/AI-Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
+[![RAG](https://img.shields.io/badge/Architecture-RAG-8B5CF6?style=for-the-badge)](https://en.wikipedia.org/wiki/Retrieval-augmented_generation)
+[![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 ---
 
-## 🚀 Overview
+## ✨ Overview
 
-**WebMind AI** is a web intelligence and research platform designed to go beyond traditional search engines.
+**WebMind-AI** is an intelligent website analysis and knowledge discovery platform that transforms web content into meaningful insights using Artificial Intelligence and Retrieval-Augmented Generation (RAG).
 
-It combines web search, webpage extraction, content analysis, multi-source research, claim relevance assessment, and automated report generation into one unified workspace.
+Instead of manually reading lengthy webpages, users can provide a website URL, automatically extract its content, and interact with the information through natural-language questions.
 
-Instead of simply collecting links, WebMind AI helps users retrieve information, analyze source content, organize findings, and generate structured research reports.
+WebMind-AI combines web scraping, intelligent text processing, semantic search, vector embeddings, and AI-powered reasoning into one streamlined experience.
 
-### 🎯 Vision
+## 🚀 Key Features
 
-Build an intelligent research environment that makes discovering, analyzing, and organizing information faster and more accessible.
-
----
-
-## ✨ Core Features
-
-| Module | Capabilities |
+| Feature | Description |
 |---|---|
-| 🔎 Web Search | Retrieve relevant web search results |
-| 🕷️ Web Crawler | Extract readable content from webpages |
-| 🧠 Content Intelligence | Analyze text, identify keywords, and generate extractive summaries |
-| 🤖 Research Agent | Conduct multi-source research and consolidate findings |
-| 🛡️ Claim Verification | Assess keyword relevance between claims and source content |
-| 📄 Report Generator | Generate research reports in PDF and Markdown formats |
-| 📊 Research Workspace | Access research modules through a unified dashboard |
-
-### 🔎 Intelligent Web Search
-- Search the web using a dedicated search engine integration.
-- Retrieve titles, URLs, and descriptions.
-- Organize search results for further investigation.
-
-### 🕷️ Web Content Extraction
-- Retrieve webpage content.
-- Extract readable text from supported HTML pages.
-- Apply URL validation and request-size restrictions.
-
-### 🧠 Content Intelligence
-- Extract important keywords.
-- Analyze text structure and statistics.
-- Generate extractive summaries.
-- Estimate reading time.
-
-### 🤖 Autonomous Research Agent
-- Search for information across multiple sources.
-- Retrieve and analyze available webpage content.
-- Assess source relevance.
-- Consolidate research findings.
-- Report retrieval failures and limitations.
-
-### 🛡️ Claim Relevance Assessment
-- Compare a claim against supplied source content.
-- Identify matched and missing keywords.
-- Calculate a keyword-overlap score.
-- Provide a relevance classification.
-
-> **Important:** Keyword overlap is not factual verification. A high relevance score does not prove that a claim is true.
-
-### 📄 Automated Research Reports
-- Generate PDF reports.
-- Generate Markdown reports.
-- Organize research findings into structured output.
-
----
+| 🌐 Website Intelligence | Analyze website content through URL-based indexing |
+| 🔎 Smart Web Crawling | Extract meaningful content from webpages |
+| 🧹 Content Processing | Clean and preprocess extracted text |
+| ✂️ Intelligent Chunking | Divide content into searchable text segments |
+| 🧠 AI Embeddings | Convert content into semantic vector representations |
+| 🗂️ Vector Database | Store and retrieve website knowledge efficiently |
+| 💬 AI Question Answering | Ask questions directly about indexed websites |
+| 🎯 Context-Aware Responses | Generate answers using retrieved website information |
+| 📊 Website Analytics | Explore indexed content and knowledge statistics |
+| ⚡ Semantic Search | Retrieve relevant content based on meaning |
+| 💾 Website Caching | Reduce repeated processing through caching |
 
 ## 🏗️ System Architecture
 
-```text
-                 WEBMIND AI
-                      |
-          React + TypeScript Frontend
-                      |
-               Vite Development
-                      |
-                FastAPI Backend
-                      |
-       +--------------+--------------+
-       |              |              |
-    Web Search     Web Crawler    Intelligence
-       |              |              |
-       +--------------+--------------+
-                      |
-              Research Agent
-                      |
-             Relevance Assessment
-                      |
-               Report Generator
-                      |
-                PDF / Markdown
+```mermaid
+flowchart TD
+    A[User] --> B[Streamlit Interface]
+    B --> C[Website URL]
+    C --> D[Web Scraper]
+    D --> E[Content Extraction]
+    E --> F[Text Cleaning]
+    F --> G[Text Chunking]
+    G --> H[AI Embeddings]
+    H --> I[Vector Database]
+    I --> J[Semantic Retrieval]
+    J --> K[RAG Pipeline]
+    K --> L[Gemini AI]
+    L --> M[Context-Aware Answer]
+    M --> B
 ```
 
-### Technology Stack
+## 🛠️ Technology Stack
 
-**Frontend**
-- React
-- TypeScript
-- Vite
-- CSS
-- Lucide React
-
-**Backend**
-- Python 3.13
-- FastAPI
-- Uvicorn
-- Requests
-- BeautifulSoup
-- Trafilatura
-- DDGS
-- ReportLab
-
----
+| Category | Technology |
+|---|---|
+| Programming Language | Python |
+| User Interface | Streamlit |
+| AI Model | Google Gemini |
+| AI Architecture | Retrieval-Augmented Generation |
+| Web Scraping | BeautifulSoup, Requests |
+| Text Processing | LangChain |
+| Vector Database | ChromaDB |
+| Configuration | python-dotenv |
 
 ## 📂 Project Structure
 
 ```text
 WebMind-AI/
 │
-├── backend/
-│   ├── app/
-│   │   ├── agents/
-│   │   │   └── research_agent.py
-│   │   │
-│   │   ├── crawler/
-│   │   │   └── engine.py
-│   │   │
-│   │   ├── intelligence/
-│   │   │   └── analyzer.py
-│   │   │
-│   │   ├── reports/
-│   │   │   └── builder.py
-│   │   │
-│   │   ├── search/
-│   │   │   └── engine.py
-│   │   │
-│   │   ├── verification/
-│   │   │   ├── engine.py
-│   │   │   └── routes.py
-│   │   │
-│   │   └── main.py
-│   │
-│   └── requirements.txt
+├── app.py
+├── index_data.py
+├── query_data.py
+├── requirements.txt
 │
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── App.tsx
-│   │   ├── main.tsx
-│   │   └── index.css
-│   │
-│   ├── index.html
-│   ├── package.json
-│   ├── package-lock.json
-│   └── vite.config.ts
+├── scraper/
+│   └── Website content extraction
 │
-├── docs/
+├── preprocessing/
+│   └── Text cleaning and chunking
 │
+├── embeddings/
+│   └── Embedding generation
+│
+├── vectordb/
+│   └── Vector storage and retrieval
+│
+├── rag/
+│   └── Retrieval and answer generation
+│
+├── utils/
+│   └── Common utilities
+│
+├── cache/
+│   └── Website caching
+│
+├── .env.example
 ├── .gitignore
 ├── LICENSE
 └── README.md
 ```
 
-*The structure above illustrates the main project modules. Include additional files and configuration folders as they are added to the repository.*
-
----
-
 ## ⚙️ Installation & Setup
 
-### Prerequisites
-
-Make sure you have installed:
-
-- Python 3.13
-- Node.js and npm
-- Git
-- Visual Studio Code
-
-### 1. Clone the Repository
+### 1. Clone Repository
 
 ```bash
 git clone https://github.com/Alwin0606/WebMind-AI.git
-
 cd WebMind-AI
 ```
 
-### 2. Set Up the Backend
+### 2. Create Virtual Environment
 
-Create a virtual environment:
-
-```powershell
-py -3.13 -m venv backend\.venv
+```bash
+py -3.13 -m venv .venv
 ```
 
-Activate it:
+### 3. Activate Environment
+
+**Windows PowerShell**
 
 ```powershell
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
-.\backend\.venv\Scripts\Activate.ps1
+.\.venv\Scripts\Activate.ps1
 ```
 
-Install dependencies:
+### 4. Install Dependencies
 
-```powershell
-python -m pip install -r backend\requirements.txt
+```bash
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-Start the backend:
+### 5. Configure Environment Variables
 
-```powershell
-python -m uvicorn backend.app.main:app --reload
+Create a `.env` file in the project root:
+
+```env
+GOOGLE_API_KEY=your_google_gemini_api_key
 ```
 
-Backend URL:
+Replace the placeholder with your API key.
 
-`http://127.0.0.1:8000`
+### 6. Launch Application
 
-### 3. Set Up the Frontend
-
-Open another terminal:
-
-```powershell
-cd frontend
+```bash
+streamlit run app.py
 ```
 
-Install dependencies:
+The application will open in your browser:
 
-```powershell
-npm.cmd install
+```text
+http://localhost:8501
 ```
 
-Start the frontend:
+## 🔍 How WebMind-AI Works
 
-```powershell
-npm.cmd run dev
-```
+1. **Submit Website:** Enter a public website URL.
+2. **Extract Content:** The crawler retrieves relevant webpage information.
+3. **Process Content:** HTML is cleaned and converted into readable text.
+4. **Generate Embeddings:** Text chunks are transformed into vector embeddings.
+5. **Index Knowledge:** Embeddings are stored in ChromaDB.
+6. **Ask Questions:** Users submit questions in natural language.
+7. **Retrieve Context:** Semantic search finds relevant website content.
+8. **Generate Answers:** Gemini produces context-aware responses based on retrieved information.
 
-Frontend URL:
+## 💡 Use Cases
 
-`http://127.0.0.1:5173`
+- 📚 Research and knowledge discovery
+- 📖 Website documentation analysis
+- 🎓 Educational content exploration
+- 🏢 Business website intelligence
+- 📰 Article summarization and analysis
+- 💻 Technical documentation assistance
+- 🔎 Information extraction from public websites
 
----
+## 🔐 Security & Responsible Usage
 
-## 🔌 API Reference
+- Protect API keys using environment variables.
+- Never commit `.env` files or credentials.
+- Respect website terms of service and crawling restrictions.
+- Follow robots.txt policies where applicable.
+- Apply reasonable request limits and timeouts.
+- Avoid crawling private, restricted, or unauthorized content.
 
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/api/health` | Backend health status |
-| GET | `/api/v1/search/` | Web search |
-| POST | `/api/v1/research/run` | Autonomous research |
-| POST | `/api/v1/verification/verify` | Claim relevance assessment |
-| POST | `/api/v1/reports/generate` | PDF or Markdown report generation |
+## 🔮 Future Roadmap
 
-### Interactive API Documentation
-
-FastAPI automatically provides interactive API documentation:
-
-`http://127.0.0.1:8000/docs`
-
-Use Swagger UI to inspect endpoints and test API requests.
-
----
-
-## 🔐 Security Considerations
-
-WebMind AI includes initial URL validation and webpage retrieval safeguards.
-
-Security measures include:
-- HTTP/HTTPS URL validation.
-- Rejection of local and non-public IP destinations.
-- Request timeouts.
-- Response-size limits.
-- HTML content-type validation.
-- Redirects disabled during webpage retrieval.
-
-**Production hardening still required:** DNS rebinding protection, controlled network egress, stronger rate limiting, concurrency limits, authentication, and deployment security reviews.
-
----
-
-## 🧪 Current Implementation & Limitations
-
-WebMind AI is an actively developing project.
-
-The current implementation uses:
-- Search-engine retrieval.
-- Rule-based text analysis.
-- Extractive summarization.
-- Keyword-overlap relevance assessment.
-- Multi-source research orchestration.
-- PDF and Markdown report generation.
-
-It does not currently claim to provide definitive fact-checking or LLM-powered reasoning. Research quality depends on source availability, extraction success, and the relevance of retrieved content.
-
----
-
-## 🛣️ Future Roadmap
-
-- [ ] LLM-powered research and summarization.
-- [ ] Retrieval-Augmented Generation (RAG).
-- [ ] Vector database integration.
-- [ ] PostgreSQL persistent storage.
-- [ ] User authentication and role management.
-- [ ] Advanced source credibility analysis.
-- [ ] Evidence-based claim verification.
-- [ ] Research history and saved projects.
-- [ ] Docker-based deployment.
-- [ ] Cloud deployment and scalability improvements.
-
----
-
-## 🎯 Use Cases
-
-- Academic and technical research.
-- Market and industry research.
-- Technology trend analysis.
-- Multi-source information gathering.
-- Content investigation.
-- Structured research documentation.
-
----
+- [ ] Multi-website knowledge indexing
+- [ ] Advanced conversational memory
+- [ ] Source citations for AI responses
+- [ ] PDF and document intelligence
+- [ ] Hybrid search using keyword and vector retrieval
+- [ ] Advanced website analytics
+- [ ] User authentication and workspace management
+- [ ] Improved crawling and content extraction
+- [ ] Docker-based deployment
+- [ ] Enterprise knowledge management integration
 
 ## 👨‍💻 Developer
 
-**Developed as an AI-powered web intelligence and research platform.**
+**Alwin0606**
 
-GitHub: [Alwin0606](https://github.com/Alwin0606)
+GitHub: [@Alwin0606](https://github.com/Alwin0606)
 
-Repository: [WebMind AI](https://github.com/Alwin0606/WebMind-AI)
+Project Repository: [WebMind-AI](https://github.com/Alwin0606/WebMind-AI)
 
 ---
 
-## 📜 License
+## 📄 License
 
-Refer to the repository's `LICENSE` file for licensing terms.
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
 ---
 
 <p align="center">
-  <strong>🌐 WebMind AI</strong>
-  <br/>
-  <em>Beyond Search. Into Intelligence.</em>
-  <br/><br/>
-  Built to make web research smarter, structured, and more accessible.
+
+### 🌐 WebMind-AI
+
+**Understand the Web. Discover Knowledge. Think Smarter.**
+
+⭐ If you find this project useful, consider giving it a star!
+
 </p>
