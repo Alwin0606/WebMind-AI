@@ -1,40 +1,32 @@
-﻿
-from fastapi import APIRouter, HTTPException
+﻿from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
-from backend.app.verification.engine import assess_relevance
+from backend.app.agents.research_agent import conduct_research
 
 router = APIRouter(
-    prefix="/api/v1/verification",
-    tags=["Claim Verification"]
+    prefix="/api/v1/research",
+    tags=["Autonomous Research Agent"]
 )
 
 
-class VerificationRequest(BaseModel):
-    claim: str = Field(..., min_length=5, max_length=2000)
-    content: str = Field(..., min_length=10, max_length=20000)
+class ResearchRequest(BaseModel):
+    question: str = Field(..., min_length=5, max_length=500)
+    max_sources: int = Field(default=5, ge=1, le=5)
 
 
-@router.post("/verify")
-async def verify_claim(request: VerificationRequest):
+@router.post("/run")
+async def run_research(request: ResearchRequest):
     try:
-        result = assess_relevance(
-            request.claim,
-            request.content
+        return conduct_research(
+            request.question,
+            request.max_sources
         )
 
-        return {
-            "status": "completed",
-            "claim": request.claim,
-            "assessment": result,
-            "disclaimer": (
-                "This is a relevance assessment, not definitive "
-                "fact-checking or proof of truth."
-            )
-        }
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
 
-    except Exception as error:
+    except Exception:
         raise HTTPException(
-            status_code=500,
-            detail=f"Verification failed: {str(error)}"
+            status_code=502,
+            detail="Autonomous research could not be completed"
         )
